@@ -6,61 +6,39 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import crypto from 'react-native-quick-crypto';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
+function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const {publicKey, privateKey} = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048, // Key size in bits
+    publicKeyEncoding: {
+      type: 'spki',
+      format: 'pem',
+    },
+    privateKeyEncoding: {
+      type: 'pkcs8',
+      format: 'pem',
+    },
+  });
+  console.log('🚀 ~ test ~ privateKey:', privateKey);
+  console.log('🚀 ~ test ~ publicKey:', publicKey);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -76,20 +54,21 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <Text style={styles.title}>React Native Quick Crypto</Text>
+          <Text style={styles.label}>Private Key</Text>
+          <TextInput
+            style={[styles.textArea, styles.private]}
+            value={privateKey?.toString()}
+            multiline={true}
+            editable={false}
+          />
+          <Text style={styles.label}>Public Key</Text>
+          <TextInput
+            style={[styles.textArea, styles.public]}
+            value={publicKey?.toString()}
+            multiline={true}
+            editable={false}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -97,21 +76,29 @@ function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
+  title: {
     fontSize: 24,
     fontWeight: '600',
+    alignSelf: 'center',
+    paddingVertical: 24,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    paddingHorizontal: 24,
   },
-  highlight: {
-    fontWeight: '700',
+  textArea: {
+    fontSize: 8,
+    fontWeight: '600',
+    alignSelf: 'center',
+    paddingTop: 24,
+    height: 200,
+  },
+  private: {
+    height: 300,
+  },
+  public: {
+    height: 150,
   },
 });
 

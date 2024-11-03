@@ -34,9 +34,7 @@ bun start
 # ctrl-c to stop the app
 
 # install RNQC
-bun add react-native-quick-crypto@0.7.5
-#or a specific branch
-bun add github:margelo/react-native-quick-crypto#0.x
+bun add react-native-quick-crypto@0.7.6
 
 # start the app again
 bun start
