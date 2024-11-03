@@ -6,6 +6,7 @@ This is a set of test apps for the React Native Quick Crypto (RNQC) library.  Th
 
 ### crna_0_71_19
 
+From the root of this repo:
 ```bash
 # create the app
 bunx @react-native-community/cli init crna_0_71_19 --version 0.71.19 --install-pods true --skip-git-init true --directory apps/crna_0_71_19
@@ -26,13 +27,15 @@ jenv local 17
 ```bash
 # go to the app directory
 cd apps/crna_0_71_19
+
 # start the app
 bun start
 # `a` for android - should see the app in the emulator
-
 # ctrl-c to stop the app
+
 # install RNQC
-bun add react-native-quick-crypto@0.7.4
+bun add react-native-quick-crypto@0.7.6
+
 # start the app again
 bun start
 # `a` for android - should see the app in the emulator
