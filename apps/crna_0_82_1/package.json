@@ -6,13 +6,16 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "pods": "RCT_NEW_ARCH_ENABLED=1 RCT_USE_RN_DEP=1 RCT_USE_PREBUILT_RNCORE=1 bundle install && bundle exec pod install --project-directory=ios",
     "start": "react-native start",
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.82.1",
     "react": "19.1.1",
     "react-native": "0.82.1",
-    "@react-native/new-app-screen": "0.82.1",
+    "react-native-nitro-modules": "0.31.10",
+    "react-native-quick-crypto": "1.0.5",
     "react-native-safe-area-context": "^5.5.2"
   },
   "devDependencies": {
@@ -37,5 +40,8 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "trustedDependencies": [
+    "react-native-nitro-modules"
+  ]
 }
